@@ -1,12 +1,51 @@
-html, body { margin: 0; height: 100%; background: #f2f0f4; color: #1d1b22; font: 15px/1.4 system-ui, sans-serif; }
-.app { display: flex; gap: 32px; align-items: center; justify-content: center; height: 100%; padding: 24px; box-sizing: border-box; }
-.controls { display: flex; flex-direction: column; gap: 14px; width: 280px; }
-.controls h1 { margin: 0; font-size: 28px; }
-.controls p { margin: 0; color: #5c5866; }
-label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
-input[type=text] { font: inherit; padding: 8px; border: 1px solid #c9c4d1; border-radius: 6px; }
-button { font: inherit; font-weight: 700; padding: 10px; border: 0; border-radius: 6px; background: #1d1b22; color: #fff; cursor: pointer; }
-canvas { width: min(70vh, 60vw); height: min(70vh, 60vw); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); }
-body.shot-cover .controls { display: none; }
-body.shot-cover .app { padding: 0; }
-body.shot-cover canvas { width: 100vw; height: 100vh; box-shadow: none; }
+/* Vice Hour editor: a dark plum studio, one cyan accent for everything
+   interactive, cream text. The poster itself carries the colour; the chrome
+   around it stays quiet and disciplined. */
+
+html, body { margin: 0; min-height: 100%; background: #150A1E; color: #FFF3E0; font: 15px/1.45 Outfit, system-ui, sans-serif; }
+.app { display: flex; gap: 0; height: 100vh; overflow: hidden; }
+.controls { width: 320px; flex: none; padding: 20px 20px 32px; box-sizing: border-box; border-right: 1px solid #2A1538; display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
+.controls h1 { margin: 0; font: 700 34px/1 "Big Shoulders", "Arial Narrow", sans-serif; letter-spacing: 0.04em; color: #FFD662; }
+.tagline { margin: 4px 0 0; color: #C9A8D6; font-size: 13px; }
+.group { display: flex; flex-direction: column; gap: 10px; }
+.group h2 { margin: 0; font: 700 11px/1 Outfit, sans-serif; letter-spacing: 0.18em; text-transform: uppercase; color: #4DE3FF; }
+label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 13px; color: #E8D5F0; }
+label.check { flex-direction: row; align-items: center; gap: 8px; font-weight: 400; cursor: pointer; }
+input[type=text], select { font: inherit; color: #FFF3E0; background: #241231; border: 1px solid #4A2A5E; border-radius: 6px; padding: 8px 10px; }
+input[type=text]:focus, select:focus { outline: 2px solid #4DE3FF; outline-offset: 1px; }
+input[type=range] { accent-color: #4DE3FF; width: 100%; }
+.row { display: flex; gap: 10px; }
+.row > * { flex: 1; min-width: 0; }
+button { font: inherit; font-weight: 700; padding: 9px 12px; border: 1px solid #4A2A5E; border-radius: 6px; background: #241231; color: #FFF3E0; cursor: pointer; }
+button:hover:not(:disabled) { border-color: #4DE3FF; }
+button:disabled { opacity: 0.4; cursor: default; }
+button.primary { background: #E91B61; border-color: #E91B61; padding: 12px; font-size: 16px; }
+button.primary:hover { background: #FF2E88; border-color: #FF2E88; }
+button.active { border-color: #4DE3FF; box-shadow: 0 0 0 1px #4DE3FF; }
+.hint, .panel-label { margin: 0; color: #9A7BA8; font-size: 12px; }
+#status { margin: 0; min-height: 1.2em; color: #4DE3FF; font-size: 13px; }
+
+.tray { display: flex; gap: 8px; flex-wrap: wrap; }
+.tray-photo { padding: 0; border: 2px solid #4A2A5E; border-radius: 6px; overflow: hidden; width: 72px; height: 72px; background: #241231; }
+.tray-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tray-photo:hover { border-color: #4DE3FF; }
+.upload { cursor: pointer; }
+.upload input { display: none; }
+.upload { border: 1px dashed #4A2A5E; border-radius: 6px; padding: 10px; text-align: center; color: #4DE3FF; }
+.upload:hover { border-color: #4DE3FF; }
+
+.picker { display: flex; flex-wrap: wrap; gap: 8px; }
+.picker button { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 6px; font-size: 11px; font-weight: 600; }
+.picker button canvas { display: block; border-radius: 3px; }
+.grades button { width: 92px; height: 56px; justify-content: flex-end; padding: 0; overflow: hidden; position: relative; border: 1px solid #4A2A5E; }
+.grades button span { background: rgba(10, 4, 20, 0.72); width: 100%; padding: 3px 0; font-size: 11px; }
+.sizes button { flex: 1; font-size: 12px; padding: 8px 4px; }
+
+.stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px; box-sizing: border-box; overflow: hidden; background: radial-gradient(ellipse at 50% 30%, #241231 0%, #150A1E 70%); }
+#poster { width: min(78vh, 62vw); height: auto; max-height: 82vh; box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55); cursor: grab; }
+#poster:active { cursor: grabbing; }
+.stage-hint { margin: 0; color: #9A7BA8; font-size: 12px; text-align: center; }
+
+body.shot-cover .controls, body.shot-cover .stage-hint { display: none; }
+body.shot-cover .stage { padding: 0; background: #150A1E; }
+body.shot-cover #poster { width: 100vw; height: 100vh; max-height: none; box-shadow: none; object-fit: contain; }
